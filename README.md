@@ -17,6 +17,7 @@ Some of the limitations of these findings are due to the nature of
 What risks/limitations/assumptions affect these findings?
 
 ## Statistical Analysis
+
 implementation
 evaluation
 inference
@@ -26,7 +27,7 @@ inference
 Data was collected through the links above and hosted locally. After downloading the data, I placed each of the images into a new directory based upon the age group classes they would fall in. When doing this, I realized that there was high class imbalance. As such, I decided to limit the scope of the dataset and only allow 1500 images per class as a maximum in the train dataset, and 500 images per class as a maximum in the test dataset. Furthermore, I originally had 10 classes, ranging from 0-10, 11-20, ..., 81-90, and >90. However, the downloaded dataset did not have anyone in the 71-80, 81-90, and >90 age groups, so those classes were eliminated (for a total of 7 classes remaining). After looking at the normalized value counts, the baseline accuracy for the model was about 22%.
 
 - ### Creating the first model:
-The first model was created from the ground up using Keras. After checking that the images were placed correctly in the formatted file structure, the `flow_from_directory` method was used to feed the images into the model. I initially set the number of epochs to 5, feeding in all the train and test images (about 7500 and 2300 respectively). The model scored lower than the baseline, with an accuracy score of about 19%. This model was saved as a `.json` file, with the weights saved in a `.h5` file, as well.
+The first model was created from the ground up using Keras on my local machine. After checking that the images were placed correctly in the formatted file structure, the `flow_from_directory` method was used to feed the images into the model. I initially set the number of epochs to 5, feeding in all the train and test images (about 7500 and 2300 respectively). The model scored lower than the baseline, with an accuracy score of about 19%. This model was saved as a `.json` file, with the weights saved in a `.h5` file, as well. In fact, the model was not learning anything, just choosing the majority train class (age group '31-40') for all predictions.
 
 - ### Using the pre-trained VGG-16 Faces model:
 The second model was created by using the pre-trained VGG-16 Face model. 

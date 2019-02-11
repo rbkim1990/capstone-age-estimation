@@ -1,0 +1,5 @@
+# Ignore the models and weights folder
+models_and_weights/
+
+# Ignore the classification_data folder
+classification_data/

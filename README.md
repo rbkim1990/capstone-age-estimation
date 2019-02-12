@@ -1,5 +1,5 @@
 # Capstone - Age Estimation using Convolutional Neural Networks
-![]()  
+![](images/final_predictions.png)  
 [Roy Kim](www.roykim.me)
 
 ## Executive Summary

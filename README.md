@@ -7,7 +7,7 @@ The problem statement and goal for this project is as follows: Using convolution
 
 The data was retrieved from two sources, the [MegaAge and MegaAge Asian](http://mmlab.ie.cuhk.edu.hk/projects/MegaAge/) datasets. These images come preprocessed, meaning that the face was already extracted from each image, and the size of each face image was standardized to be 178x218 pixels.
 
-The metrics that were used in this project were cross entropy (mainly as a loss function for the convolutional neural network) and accuracy. However, in this case of multiclass prediction where classes were not completely independent of each other (ie. the age group of 21-30 should exhibit more common characteristics with the age group of 31-40 than the age group of 71-80), the confusion matrix was also considered.
+The metrics that were used in this project were cross entropy (mainly as a loss function for the convolutional neural network) and accuracy. However, in this case of multiclass prediction where classes were not completely independent of each other (ie. the age group of `21-30` should exhibit more common characteristics with the age group of `31-40` than the age group of `71-80`), the confusion matrix was also considered.
 
 There were a few models that were trained on the dataset. The first was a model that was trained from scratch on local hardware. This model achieved an accuracy score of about 29%, meaning that it correctly classified the age group of the person in the picture only 29% of the time.
 
@@ -16,17 +16,29 @@ The second model used a pre-trained model (the [VGG-16 Face model](https://githu
 ## Statistical Analysis
 One of the greatest hurdles in the project is class imbalance. For further iterations, undersampling the higher percentage classes might be necessary to see improvement in accuracy. 
 
-![]()
+MegaAge Train Dataset |  MegaAge Test Dataset
+:--------------------:|:--------------------:
+![](images/megaage_train_class_balance_before.png)|![](images/megaage_test_class_balance_before.png)  
+
 The class imbalance for the train and test images from the MegaAge dataset can be seen here.
 
-![]() 
+MegaAge Asian Train Dataset |  MegaAge Asian Test Dataset
+:--------------------:|:--------------------:
+![](images/megaage_asian_train_class_balance_before.png)|![](images/megaage_asian_test_class_balance_before.png)  
+
 The class imbalance for the train and test images from the MegaAge Asian dataset can be seen. This dataset is somewhat more balanced than the MegaAge dataset, but still has a high imbalance.
 
-![]()
-Combined together, there is still high class imbalance. Based on the imbalance, we can expect the base accuracy of any model would be to guess the majority class. In this case, the majority class for the train dataset is () and choosing that majority class to predict on the test dataset would yield an accuracy score of (). This number will serve as the baseline going forward.
+Combined Train Dataset |  Combined Test Dataset
+:--------------------:|:--------------------:
+![](images/train_class_balance_after.png) | ![](images/test_class_balance_after.png)  
 
-After modeling, the predictions from the VGG-16 model were recorded to further analyze the model (beyond simple accuracy). The following confusion matrix shows how the VGG-16 model is predicting versus the true classes of the images. 
-![]()
+Combined together, there is still high class imbalance, especially in the test dataset. Based on the imbalance, we can expect the base accuracy of any model would be to guess the majority class. In this case, the majority class for the train dataset is `21-30` age group and choosing that majority class to predict on the test dataset would yield an accuracy score of 36.3%. This number will serve as the baseline going forward.
+
+After modeling, the VGG-16 model achieved an accuracy score of about 50.5% on the test data. The predictions from the VGG-16 model were recorded to further analyze the model (beyond simple accuracy). The following confusion matrix shows how the VGG-16 model is predicting versus the true classes of the images. 
+
+VGG-16 Model Confusion Matrix |  Normalized
+:--------------------:|:--------------------:
+![](images/vgg_confusion_count.png) | ![](images/vgg_confusion_norm.png)
 
 In the evaluation of the model, one thing that was considered was a "One-Off" metric. This metric took into account that the age group classifications are not wholly independent of one another, and that the class `0-10` is closer to `11-20` than `51-60`. With that in mind, I created a simple function to calculate this metric:
 
@@ -67,11 +79,13 @@ After running the model locally, I transferred the model to Amazon Web Services 
 
 - ### Using the pre-trained VGG-16 Faces model:
 The second model was created by using the pre-trained VGG-16 Face model
-The VGG-16 model is a pre-trained model that has been trained by Oxford University's Visual Geometry Group (VGG) and achieved state-of-the-art performance on image recognition. The VGG-16 Face model is a further pre-trained model that uses the underlying VGG-16 model and is trained on thousands of faces. However, the VGG-16 Face model is quite deep, with (...) layers [image of model here]. Even running on AWS, the model took quite some time to run through the dataset (about 30 minutes for each **epoch**). I trained my model initially, training it overnight. To my surprise, the model not learning anything. After doing some research, I increased the batch size from 16 to 32. With this tweak, the model started to learn gradually. Why this is the case is outlined in an article linked in the resources section. With that training, the model was able to achieve an accuracy score of 
+The VGG-16 model is a pre-trained model that has been trained by Oxford University's Visual Geometry Group (VGG) and achieved state-of-the-art performance on image recognition. The VGG-16 Face model is a further pre-trained model that uses the underlying VGG-16 model and is trained on thousands of faces. However, the VGG-16 Face model is quite deep, with 16 convolutional, pooling, and dense layers.
+!()[images/]
+Even running on AWS, the model took quite some time to run through the dataset (about 30 minutes for each **epoch**). I trained my model initially, training it overnight. To my surprise, the model not learning anything. After doing some research, I increased the batch size from 16 to 32. With this tweak, the model started to learn gradually. Why this is the case is outlined in an article linked in the resources section. With that training, the model was able to achieve an accuracy score of 
 
 - ### Extra: Applying the model to a live video feed via OpenCV
 Due to time constraints, this section has not been realized. However, going forward, there are a few additional thing that I aim to apply to my trained model:
-- use a live video feed via OpenCV to classify someone's age group based on their face (perhaps using a computer's webcam). 
+- use a live video feed via OpenCV to classify someone's age group based on their face (perhaps using a computer's webcam)
 - create a regression problem where the model predicts age, as opposed to age group
 - implementing a validation training set (instead of only having a train and test split)
 

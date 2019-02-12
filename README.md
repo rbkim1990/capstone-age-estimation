@@ -80,7 +80,7 @@ After running the model locally, I transferred the model to Amazon Web Services 
 - ### Using the pre-trained VGG-16 Faces model:
 The second model was created by using the pre-trained VGG-16 Face model
 The VGG-16 model is a pre-trained model that has been trained by Oxford University's Visual Geometry Group (VGG) and achieved state-of-the-art performance on image recognition. The VGG-16 Face model is a further pre-trained model that uses the underlying VGG-16 model and is trained on thousands of faces. However, the VGG-16 Face model is quite deep, with 16 convolutional, pooling, and dense layers.
-!()[images/]
+!()[images/VGG16-architecture-16.png]
 Even running on AWS, the model took quite some time to run through the dataset (about 30 minutes for each **epoch**). I trained my model initially, training it overnight. To my surprise, the model not learning anything. After doing some research, I increased the batch size from 16 to 32. With this tweak, the model started to learn gradually. Why this is the case is outlined in an article linked in the resources section. With that training, the model was able to achieve an accuracy score of 
 
 - ### Extra: Applying the model to a live video feed via OpenCV

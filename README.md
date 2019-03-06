@@ -3,7 +3,7 @@
 [Roy Kim](www.roykim.me)
 
 ## Facial Detection and Image Recognition
-Facial detection is a hot issue nowadays. There are heavy business and government implications to facial detection and image recognition, in general.  For example, being able to have a prediction for someone's age might allow for more targeted advertisement. In this project, I was able to develop my skills in using Keras, Convlutional Neural Networks, and Python automation of tasks.
+Facial detection is a hot issue nowadays. There are heavy business and government implications to facial detection and image recognition, in general.  For example, being able to have a prediction for someone's age might allow for more targeted advertisement. In this project, I was able to develop my skills in using Keras, Convolutional Neural Networks, and Python automation of tasks.
 
 ## Executive Summary
 The problem statement and goal for this project is as follows: Using convolutional neural networks, I will train a classification model to predict someone’s age group based upon his/her picture. Model performance will be guided by cross entropy and accuracy (as well as considering the confusion matrix and other metrics), and the model will aim to achieve a score greater than baseline accuracy (determined by the number of classes).
